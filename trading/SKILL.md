@@ -85,3 +85,36 @@ Buat tabel scorecard perbandingan (RSI, jarak ke EMA, volume breakout, kualitas 
 
 ### Pertanyaan "Kenapa Tidak Long/Short"
 Jangan cuma mengulang kesimpulan. Jelaskan logika penalaran secara eksplisit dalam poin-poin (misal: RSI ekstrem di TF besar, funding rate overheat, jarak ke EMA terlalu jauh, basis konsolidasi kurang meyakinkan, dll).
+
+
+## Onchain Analysis
+ 
+### 1️⃣ CVD Futures (Cumulative Volume Delta)
+Mengukur agresivitas net buyer vs seller di pasar futures secara kumulatif.
+- **Naik seiring harga naik** → buyer futures agresif, rally didukung momentum leverage yang kuat.
+- **Turun/negatif sementara harga naik** → **divergensi bullish** minor: rally terjadi meski tekanan jual futures kumulatif masih ada — bisa jadi short covering atau demand baru yang belum sepenuhnya tercermin.
+- **Turun tajam bersamaan harga turun** → seller futures dominan, downtrend didukung penuh oleh momentum jual.
+### 2️⃣ Spot CVD (Aggregated Spot Cumulative Volume Delta)
+Mengukur demand/supply riil di pasar spot (bukan leverage).
+- **Ini indikator PALING PENTING untuk menilai "kesehatan" sebuah rally.** Bandingkan selalu dengan CVD Futures:
+  - Spot CVD naik solid + CVD Futures naik tajam → rally sehat, didukung demand riil DAN leverage.
+  - Spot CVD flat/turun sementara CVD Futures naik tajam dan harga naik cepat → **rally rapuh/leverage-driven**, rawan unwind cepat begitu leverage terlalu panas (pola yang sering berujung koreksi tajam).
+  - Spot CVD tetap naik solid meski harga sedang koreksi → base demand riil masih ada, koreksi kemungkinan lebih ke unwind leverage daripada capitulation sesungguhnya.
+### 3️⃣ Funding Rate (Open Interest Weighted)
+Mengukur biaya yang dibayar antara long vs short di perpetual futures.
+- **Melonjak tajam ke level ekstrem** → sinyal overheat, leveraged longs terlalu dominan dan mahal dipertahankan → rawan **long squeeze**.
+- **Turun dari puncak ekstrem ke level normal** → leverage sudah "cooling down", ruang untuk leverage baru masuk kembali terbuka.
+- **Negatif** → short lebih dominan, kondisi sebaliknya (rawan short squeeze kalau harga rebound tiba-tiba).
+- Gunakan funding rate untuk menilai apakah level RSI overbought di chart harga "didukung" oleh leverage yang juga ekstrem, atau sudah mulai divergen (RSI masih tinggi tapi funding sudah turun = momentum mulai melemah).
+### 4️⃣ Open Interest (OI)
+Mengukur total kontrak terbuka — proxy untuk jumlah leverage aktif di market.
+- **Naik tajam bersamaan harga naik cepat** → leverage baru banyak masuk, rally makin bergantung pada leverage (risiko makin tinggi kalau harga berbalik).
+- **Turun mendadak/tajam (candle OI merah ekstrem) bersamaan harga anjlok** → indikasi kuat **liquidation cascade/mass closing**, bukan sekadar profit taking biasa.
+- **Turun bertahap/gradual (bukan crash)** → deleveraging sehat, bukan panic — market jadi lebih "bersih" dari leverage berlebih, sering jadi basis rebound yang lebih solid.
+- **Naik pelan dan stabil (bukan spike)** → leverage masuk secara sehat/tidak FOMO.
+### 5️⃣ Aggregated Futures Bid & Ask Delta
+Mengukur agresivitas order flow jangka pendek (mirip candle-by-candle sentiment).
+- **Dominan hijau (positif)** → buyer agresif jangka pendek, mendukung momentum naik.
+- **Dominan merah (negatif)** → seller agresif jangka pendek.
+- **Delta merah dominan SAAT harga sedang naik** → order flow jangka pendek tidak selaras dengan tren harga — sinyal peringatan dini bahwa kenaikan mungkin tidak didukung penuh oleh buyer agresif, melainkan short covering atau pembelian pasif.
+- Gunakan sebagai konfirmasi jangka pendek terhadap sinyal CVD/OI, bukan sinyal utama berdiri sendiri.
