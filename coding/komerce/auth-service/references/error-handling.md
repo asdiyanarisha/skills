@@ -9,7 +9,8 @@
 func (r *UserRepository) FindByID(ctx context.Context, id string) (*User, error) {
 	row := r.db.QueryRowContext(ctx, query, id)
 	var u User
-	if err := row.Scan(&u.ID, &u.Name); err != nil {
+	err := row.Scan(&u.ID, &u.Name)
+	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, fmt.Errorf("user %s: %w", id, ErrNotFound)
 		}
