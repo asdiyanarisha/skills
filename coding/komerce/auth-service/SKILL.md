@@ -41,6 +41,10 @@ Boleh baca lebih dari satu reference jika tugasnya lintas topik (mis. "buatkan R
 - **Ukuran fungsi**: jika fungsi > ~50 baris atau nesting > 3 level, tawarkan untuk dipecah.
 - **Comment berbahasa Inggris** di kode (konvensi komunitas Go), meskipun percakapan dengan user boleh bahasa Indonesia.
 - selalu buat implementation plan terlebih dahulu, jika dari prompter sudah oke maka langsung kerjakan
+- Selalu gunakan guard clause (early return) dengan pola `if err != nil { ... return }` untuk setiap error handling — hindari nested if (arrow code), pastikan happy path tetap flat di kiri tanpa indentasi berlebih.
+- Repository layer hanya bertanggung jawab atas persistence (get/set/query) menggunakan domain model — bukan DTO — dan tidak boleh mengandung business logic atau decision-making; semua itu wajib berada di Service layer.
+- Setiap resource yang di-*open* (file, koneksi DB, HTTP body, dsb.) wajib langsung diikuti `defer xxx.Close()` tepat setelah pengecekan error open berhasil, untuk mencegah resource leak.
+- Hindari akses/modifikasi map secara concurrent tanpa proteksi (mutex/sync.Map); pastikan lock selalu di-`defer Unlock()` segera setelah `Lock()`/`RLock()` untuk mencegah deadlock akibat lupa unlock atau nested locking pada map yang sama.
 
 ## Alur kerja saat menulis kode Go baru
 
